@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Carnet personnel d’observations animalières de Jérémy Paquot.">
+    <meta name="theme-color" content="#173c2d">
+    <title>Jérémy Paquot - Observations Animalières</title>
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script type="module" src="./js/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Aller au contenu</a>
+
+    <main id="login-view" class="login-page">
+      <section class="login-card" aria-labelledby="login-title">
+        <div class="brand-mark brand-mark-large" aria-hidden="true">JP</div>
+        <p class="eyebrow">Carnet de terrain personnel</p>
+        <h1 id="login-title">Observations<br>Animalières</h1>
+        <p class="login-intro">Connectez-vous pour retrouver et enregistrer vos observations.</p>
+        <form id="login-form" class="login-form">
+          <label for="password">Mot de passe</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+          <button class="primary-button" type="submit">Se connecter</button>
+          <p id="login-error" class="form-message error-message" role="alert" hidden></p>
+        </form>
+        <small>Jérémy Paquot - Observations Animalières</small>
+      </section>
+    </main>
+
+    <div id="app-view" hidden>
+      <header class="site-header">
+        <div class="header-content">
+          <a class="brand" href="#carte" aria-label="Afficher la carte">
+            <span class="brand-mark" aria-hidden="true">JP</span>
+            <span><strong>Jérémy Paquot</strong><small>Observations Animalières</small></span>
+          </a>
+          <nav class="main-nav" aria-label="Navigation principale">
+            <a class="nav-link is-active" href="#carte" aria-current="page">Carte</a>
+            <a class="nav-link" href="#nouvelle-observation">Nouvelle observation</a>
+            <button class="nav-button" type="button" data-action="logout">Déconnexion</button>
+          </nav>
+        </div>
+      </header>
+
+      <main id="main-content" class="page-shell">
+        <section id="carte" class="view" aria-labelledby="map-title">
+          <div class="section-heading">
+            <div><p class="eyebrow">Carnet de terrain</p><h1 id="map-title">Mes observations</h1></div>
+            <div class="heading-meta">
+              <p class="section-intro">Retrouvez les animaux observés pendant vos sorties photo.</p>
+              <p id="observation-count" class="count-pill">Chargement…</p>
+            </div>
+          </div>
+          <div id="observations-map" class="map" aria-label="Carte des observations"></div>
+          <p id="map-message" class="form-message" role="status" hidden></p>
+        </section>
+
+        <section id="nouvelle-observation" class="view" aria-labelledby="form-title" hidden>
+          <div class="section-heading">
+            <div><p class="eyebrow">Nouvelle entrée</p><h1 id="form-title">Ajouter une observation</h1></div>
+            <p class="section-intro">Renseignez les détails puis cliquez sur la carte pour placer précisément l’observation.</p>
+          </div>
+
+          <form id="observation-form" class="observation-layout">
+            <div class="form-panel">
+              <div class="form-grid">
+                <label>Espèce <select name="espece_id" required><option value="">Sélectionner…</option></select></label>
+                <label>Espace <select name="espace_id" required><option value="">Sélectionner…</option></select></label>
+                <label>Date <input name="date_observation" type="date" required></label>
+                <label>Heure <input name="heure_observation" type="time" required></label>
+                <label>Sexe
+                  <select name="sexe" required>
+                    <option>Mâle</option><option>Femelle</option><option>Indéterminé</option>
+                  </select>
+                </label>
+                <label>Âge
+                  <select name="age" required>
+                    <option>Adulte</option><option>Subadulte</option><option>Juvénile</option>
+                    <option>Jeune</option><option>Indéterminé</option>
+                  </select>
+                </label>
+                <label>Nombre d’individus <input name="nombre" type="number" min="1" step="1" value="1" required></label>
+                <label>Comportement <select name="comportement_id" required><option value="">Sélectionner…</option></select></label>
+                <label class="full-field">Commentaire <textarea name="commentaire" rows="4" maxlength="2000"></textarea></label>
+                <label>Latitude <input name="latitude" type="number" step="any" min="-90" max="90" readonly required></label>
+                <label>Longitude <input name="longitude" type="number" step="any" min="-180" max="180" readonly required></label>
+              </div>
+              <p id="form-message" class="form-message" role="status" hidden></p>
+              <button class="primary-button" type="submit">Enregistrer l’observation</button>
+            </div>
+            <div class="location-panel">
+              <div class="map-instruction"><strong>Position GPS</strong><span>Cliquez sur la carte pour placer le marqueur.</span></div>
+              <div id="location-map" class="map location-map" aria-label="Sélection de la position GPS"></div>
+              <button class="secondary-button" type="button" data-action="geolocate">Utiliser ma position</button>
+            </div>
+          </form>
+        </section>
+      </main>
+      <footer class="site-footer"><p>Jérémy Paquot - Observations Animalières</p></footer>
+    </div>
+    <div class="toast" role="status" aria-live="polite" hidden></div>
+  </body>
+</html>
