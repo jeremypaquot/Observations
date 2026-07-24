@@ -5,7 +5,7 @@ compatibility_date = "2026-07-24"
 [[d1_databases]]
 binding = "DB"
 database_name = "obs"
-database_id = "REMPLACER_PAR_L_ID_D1"
+database_id = "14a4f190-7874-4d00-93a4-c3398d7c5430"
 
 [vars]
 ALLOWED_ORIGIN = "https://jeremypaquot.github.io"
