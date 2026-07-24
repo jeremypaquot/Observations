@@ -13,6 +13,29 @@ function escapeHtml(value) {
   })[character]);
 }
 
+function animalEmoji(species = "") {
+  const name = species.toLowerCase();
+  const matches = [
+    [["renard"], "🦊"], [["cerf", "chevreuil", "daim"], "🦌"],
+    [["sanglier"], "🐗"], [["lapin", "lièvre"], "🐇"],
+    [["loutre"], "🦦"], [["loup"], "🐺"], [["chat"], "🐈"],
+    [["castor"], "🦫"], [["hérisson"], "🦔"], [["écureuil"], "🐿️"],
+    [["bouquetin", "chamois"], "🐐"], [["mouflon"], "🐏"],
+    [["blaireau"], "🦡"], [["ragondin", "rat musqué"], "🐀"],
+  ];
+  return matches.find(([keywords]) => keywords.some((keyword) => name.includes(keyword)))?.[1] || "🐾";
+}
+
+function animalIcon(species) {
+  return L.divIcon({
+    className: "animal-marker",
+    html: `<span aria-hidden="true">${animalEmoji(species)}</span>`,
+    iconSize: [42, 42],
+    iconAnchor: [21, 21],
+    popupAnchor: [0, -18],
+  });
+}
+
 export function initObservationsMap() {
   if (observationsMap) return;
   observationsMap = L.map("observations-map").setView(FRANCE_CENTER, 6);
@@ -25,7 +48,7 @@ export function renderObservations(observations) {
   markersLayer.clearLayers();
   for (const item of observations) {
     if (!Number.isFinite(Number(item.latitude)) || !Number.isFinite(Number(item.longitude))) continue;
-    const marker = L.marker([item.latitude, item.longitude]);
+    const marker = L.marker([item.latitude, item.longitude], { icon: animalIcon(item.espece) });
     marker.bindPopup(`
       <article class="observation-popup">
         <h2>${escapeHtml(item.espece)}</h2>
@@ -68,3 +91,4 @@ export function resetLocation() {
     locationMarker = null;
   }
 }
+
