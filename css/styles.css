@@ -444,6 +444,17 @@ button:disabled {
   font-family: Georgia, serif;
 }
 
+.animal-marker {
+  display: grid;
+  place-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 3px 12px rgba(24, 49, 37, 0.3);
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
 .observation-popup dl {
   margin: 0;
 }
@@ -517,3 +528,4 @@ button:disabled {
     scroll-behavior: auto;
   }
 }
+
